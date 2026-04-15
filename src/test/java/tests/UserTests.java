@@ -103,4 +103,35 @@ public class UserTests extends BaseTest {
                 .body("lastname", equalTo("Smith"));
     }
 
+    @Test(priority = 5)
+    public void deleteBookingTest() {
+
+        given()
+                .log().all()
+                .header("Cookie", "token=" + token)
+
+                .when()
+                .delete("/booking/" + bookingId)
+
+                .then()
+                .log().all()
+                .statusCode(201);
+
+        System.out.println("Deleted Booking ID: " + bookingId);
+    }
+
+    @Test(priority = 6)
+    public void verifyDeletedBookingTest() {
+
+        given()
+                .log().all()
+
+                .when()
+                .get("/booking/" + bookingId)
+
+                .then()
+                .log().all()
+                .statusCode(404);
+    }
+
 }
