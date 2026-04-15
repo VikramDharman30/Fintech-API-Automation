@@ -1,0 +1,21 @@
+[
+  {
+    "firstname": "John",
+    "lastname": "Doe",
+    "totalprice": 1000,
+    "depositpaid": true,
+    "checkin": "2024-01-01",
+    "checkout": "2024-01-05",
+    "additionalneeds": "Breakfast"
+  },
+
+  {
+    "firstname": "Alice",
+    "lastname": "Smith",
+    "totalprice": 1500,
+    "depositpaid": false,
+    "checkin": "2024-02-01",
+    "checkout": "2024-02-06",
+    "additionalneeds": "Lunch"
+  }
+]

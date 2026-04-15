@@ -1,5 +1,7 @@
 package payload;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.HashMap;
 
 public class UserPayload {
@@ -42,6 +44,42 @@ public class UserPayload {
 
         booking.put("bookingdates", bookingDates);
         booking.put("additionalneeds", "Lunch");
+
+        return booking;
+    }
+
+    public static HashMap<String, Object>
+    createBookingFromJson(JsonNode data) {
+
+        HashMap<String, Object> booking =
+                new HashMap<>();
+
+        booking.put("firstname",
+                data.get("firstname").asText());
+
+        booking.put("lastname",
+                data.get("lastname").asText());
+
+        booking.put("totalprice",
+                data.get("totalprice").asInt());
+
+        booking.put("depositpaid",
+                data.get("depositpaid").asBoolean());
+
+        HashMap<String, String> bookingDates =
+                new HashMap<>();
+
+        bookingDates.put("checkin",
+                data.get("checkin").asText());
+
+        bookingDates.put("checkout",
+                data.get("checkout").asText());
+
+        booking.put("bookingdates",
+                bookingDates);
+
+        booking.put("additionalneeds",
+                data.get("additionalneeds").asText());
 
         return booking;
     }

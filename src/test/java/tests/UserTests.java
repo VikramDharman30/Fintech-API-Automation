@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -11,6 +12,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.Listeners;
 import listeners.ExtentListener;
+import utils.JsonDataReader;
 
 @Listeners(ExtentListener.class)
 public class UserTests extends BaseTest {
@@ -140,4 +142,29 @@ public class UserTests extends BaseTest {
                 .statusCode(404);
     }
 
+    @Test(
+            priority = 7,
+            dataProvider = "bookingData",
+            dataProviderClass = JsonDataReader.class
+    )
+    public void createBookingDataDrivenTest(
+            JsonNode data) {
+
+        given()
+                .log().all()
+                .contentType(ContentType.JSON)
+                .body(
+                        UserPayload
+                                .createBookingFromJson(data))
+
+                .when()
+                .post("/booking")
+
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("booking.firstname",
+                        equalTo(
+                                data.get("firstname").asText()));
+    }
 }
