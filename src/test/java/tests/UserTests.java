@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import payload.UserPayload;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 
 public class UserTests extends BaseTest {
@@ -50,7 +51,9 @@ public class UserTests extends BaseTest {
                 .log().all()
                 .statusCode(200)
                 .body("firstname", equalTo("John"))
-                .body("lastname", equalTo("Doe"));
+                .body("lastname", equalTo("Doe"))
+                .body(matchesJsonSchemaInClasspath(
+                        "schema/bookingSchema.json"));
     }
     public static String token;
 
