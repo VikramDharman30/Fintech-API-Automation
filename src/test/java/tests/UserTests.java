@@ -9,7 +9,10 @@ import payload.UserPayload;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
+import org.testng.annotations.Listeners;
+import listeners.ExtentListener;
 
+@Listeners(ExtentListener.class)
 public class UserTests extends BaseTest {
 
     public static int bookingId;
